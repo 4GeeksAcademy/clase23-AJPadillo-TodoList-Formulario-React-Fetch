@@ -1,25 +1,38 @@
-import React from "react";
-
-//include images into your bundle
-import rigoImage from "../../img/rigo-baby.jpg";
+import React, { useState } from "react";
 
 //create your first component
 const Home = () => {
+
+	const [inputDef, setInputDef] = useState("");
+	const [toDoList, setToDoList] = useState(['Make the bed', 'Wash my hands', 'Eat', 'Walk the dog'])
+
+	function arrayPos() {
+		for (let i = 0; i < toDoList.length; i++) {
+			const elemento = toDoList[i];
+			return elemento;
+		}
+	}
+
+	const onSubmit = (e) => {
+		e.preventDefault();
+		const newList = [inputDef];
+		setToDoList(newList);
+		setInputDef("");
+	}
+
 	return (
-		<div className="text-center">
-			<h1 className="text-center mt-5">Hello Rigo!</h1>
-			<p>
-				<img src={rigoImage} />
-			</p>
-			<a href="#" className="btn btn-success">
-				If you see this green button... bootstrap is working...
-			</a>
-			<p>
-				Made by{" "}
-				<a href="http://www.4geeksacademy.com">4Geeks Academy</a>, with
-				love!
-			</p>
-		</div>
+		<>
+			<form onSubmit={onSubmit}>
+				<div className="mb-3">
+					<input type="text" className="form-control" placeholder="What needs to be done?" value={inputDef} onChange={(e) => setInputDef(e.target.value)} />
+				</div>
+			</form>
+			<ul>
+				{arrayPos()}
+				{arrayPos()}
+				{arrayPos()}
+			</ul>
+		</>
 	);
 };
 
