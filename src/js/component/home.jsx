@@ -29,15 +29,18 @@ const Home = () => {
 
 	return (
 		<div className="container">
-			<h1>todo</h1>
-			<form onSubmit={onSubmit}>
-				<div className="">
-					<input type="text" className="form-control rounded-0 border-bottom-0 fs-3" placeholder="What needs to be done?" value={inputDef} onChange={(e) => setInputDef(e.target.value)} />
-				</div>
-			</form>
-			<ul className="list-group rounded-0" style={{ listStyle: "none" }}>
-				{arrayPos()}
-			</ul>
+			<p className="titulo d-flex justify-content-center fw-light text-light">todos</p>
+			<div className="mx-4">
+				<form onSubmit={onSubmit} className="shadow-lg">
+					<div>
+						<input type="text" className="form-control rounded-0 border-bottom-0 fs-2" placeholder="What needs to be done?" value={inputDef} onChange={(e) => setInputDef(e.target.value)} />
+					</div>
+				</form>
+				<ul className="list-group rounded-0" style={{ listStyle: "none" }}>
+					{arrayPos()}
+				</ul>
+			</div>
+
 		</div>
 	);
 };

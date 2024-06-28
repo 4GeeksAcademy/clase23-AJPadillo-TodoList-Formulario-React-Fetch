@@ -1,9 +1,15 @@
+body {
+    background-color: rgb(233, 233, 233);
+}
+
 .delete-btn {
     visibility: hidden;
-  }
-  
-  .list-group-item:hover .delete-btn {
-    visibility: visible;
-  }
+}
 
-  
+.list-group-item:hover .delete-btn {
+    visibility: visible;
+}
+
+.titulo {
+    font-size: 9rem;
+}
