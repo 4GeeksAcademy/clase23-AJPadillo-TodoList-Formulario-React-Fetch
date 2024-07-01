@@ -38,9 +38,13 @@ const Home = () => {
 				</form>
 				<ul className="list-group rounded-0" style={{ listStyle: "none" }}>
 					{arrayPos()}
-					<p className="list-group-item">{toDoList.length > 0 ? toDoList.length + " item(s) left" : "No hay tareas, añadir tareas"}</p>
+					<p className="list-group-item mb-0">{toDoList.length > 0 ? toDoList.length + " item(s) left" : "No hay tareas, añadir tareas"}</p>
 				</ul>
+				<div style={{ height: '5px' }} className="border mx-1 shadow-sm bg-white"></div>
+				<div style={{ height: '5px' }} className="border mx-2 shadow-sm bg-white"></div>
 			</div>
+
+
 
 		</div>
 	);
