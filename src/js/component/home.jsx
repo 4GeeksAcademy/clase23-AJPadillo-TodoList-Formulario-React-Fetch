@@ -2,7 +2,10 @@ import React, { useState, useEffect } from "react";
 
 const USERNAME = "AJPadillo";
 
-function crearUsuario(callback) {
+const newUser = crearUsuario();
+const newList = crearLista();
+
+async function crearUsuario() {
 	const protocolo = "https";
 	const baseURI = "playground.4geeks.com/todo";
 	const ruta = "/users";
@@ -12,19 +15,20 @@ function crearUsuario(callback) {
 		method,
 	};
 
-	const promesaPersonajes = fetch(`${URI}/${USERNAME}`, opciones);
-	promesaPersonajes.then((response) => {
+	try {
+		const response = await fetch(`${URI}/${USERNAME}`, opciones);
 		console.log("response = ", response);
-		return response.json();
-	})
-		.then((data) => {
-			console.log("data = ", data);
-			callback(data.results);
-		})
-		.catch((error) => console.log("Ha habido un error: ", error));
+
+		const data = await response.json();
+		console.log("data = ", data);
+
+		return data.results;
+	} catch (error) {
+		console.log("Ha habido un error: ", error);
+	}
 }
 
-function crearLista(callback) {
+async function crearLista() {
 	const protocolo = "https";
 	const baseURI = "playground.4geeks.com/todo";
 	const ruta = "/todos";
@@ -34,54 +38,64 @@ function crearLista(callback) {
 		method,
 	};
 
-	const promesaLista = fetch(`${URI}/${USERNAME}`, opciones);
-	promesaLista.then((response) => {
+	try {
+		const response = await fetch(`${URI}/${USERNAME}`, opciones);
 		console.log("response = ", response);
-		return response.json();
-	})
-		.then((data) => {
-			console.log("data = ", data);
-			callback(data.results);
-		})
-		.catch((error) => console.log("Ha habido un error: ", error));
+
+		const data = await response.json();
+		console.log("data = ", data);
+
+		return data.results;
+	} catch (error) {
+		console.log("Ha habido un error: ", error);
+	}
 }
 
-function obtenerUsuario(callback) {
+async function obtenerUsuario() {
 	const protocolo = "https";
 	const baseURI = "playground.4geeks.com/todo";
 	const ruta = "/users";
 	const URI = `${protocolo}://${baseURI}${ruta}`;
+	const method = "GET";
+	const opciones = {
+		method,
+	};
 
-	fetch(`${URI}/${USERNAME}`)
-		.then((response) => {
-			console.log("response = ", response);
-			return response.json();
-		})
-		.then((data) => {
-			console.log("data = ", data);
-			callback(data.results);
-		})
-		.catch((error) => console.log("Ha habido un error: ", error));
+	try {
+		const response = await fetch(`${URI}/${USERNAME}`, opciones);
+		console.log("response = ", response);
+
+		const data = await response.json();
+		console.log("data = ", data);
+
+		return data.results;
+	} catch (error) {
+		console.log("Ha habido un error: ", error);
+	}
 }
 
-function obtenerLista(callback) {
+async function obtenerLista() {
 	const protocolo = "https";
 	const baseURI = "playground.4geeks.com/todo";
 	const ruta = "/todos";
 	const URI = `${protocolo}://${baseURI}${ruta}`;
+	const method = "GET";
+	const opciones = {
+		method,
+	};
 
-	fetch(`${URI}/${USERNAME}`)
-		.then((response) => {
-			console.log("response = ", response);
-			return response.json();
-		})
-		.then((data) => {
-			console.log("data = ", data);
-			callback(data.results);
-		})
-		.catch((error) => console.log("Ha habido un error: ", error));
+	try {
+		const response = await fetch(`${URI}/${USERNAME}`, opciones);
+		console.log("response = ", response);
+
+		const data = await response.json();
+		console.log("data = ", data);
+
+		return data.results;
+	} catch (error) {
+		console.log("Ha habido un error: ", error);
+	}
 }
-
 
 //create your first component
 const Home = () => {
@@ -102,9 +116,25 @@ const Home = () => {
 	// Llamando a POST de /todos/{user_name}
 	// Traeme la información
 
+	//---------------------------------------------------------------------------------
+
+	// CASO REAL (NO SE SI ES LA PRIMERA VEZ)
+	// Averiguar si el usuario existe
+	// Si el usuario existe
+	// Averiguar si el usuario tiene una lista
+	// Si el usuario SI tiene una lista
+	// Traer la lista
+	// Si el usuario NO tiene una lista
+	// Crear la lista
+	// Traer la lista
+	// Si el usuario NO existe
+	// Crear un usuario
+	// Crear la lista
+	// Traer la lista
+
 	useEffect(() => {
-		crearUsuario();
-		crearLista();
+		newUser;
+		newList;
 	}, []);
 
 
