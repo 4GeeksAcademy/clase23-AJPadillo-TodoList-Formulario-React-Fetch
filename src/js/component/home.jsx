@@ -14,8 +14,8 @@ async function crearUsuario() {
         if (!response.ok) {
             throw new Error("Error al crear al usuario");
         }
-    } catch (e) {
-        console.log(e);
+    } catch (error) {
+        console.log(error);
     }
 }
 
@@ -27,6 +27,7 @@ async function obtenerUsuario() {
             return null;
         }
         const data = await response.json();
+		console.log(data);
         return data;
     } catch (error) {
         console.log(error);
@@ -73,8 +74,8 @@ async function borrarTarea(id) {
         if (!response.ok) {
             throw new Error("Error al borrar la tarea");
         }
-    } catch (e) {
-        console.log(e);
+    } catch (error) {
+        console.log(error);
     }
 }
 
@@ -115,8 +116,8 @@ const Home = () => {
         ));
     };
 
-    const onSubmit = async (e) => {
-        e.preventDefault();
+    const onSubmit = async (evento) => {
+        evento.preventDefault();
         await agregarTarea(inputDef);
         const listaActualizada = await obtenerLista();
         setToDoList(listaActualizada || []);
