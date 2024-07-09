@@ -7,6 +7,23 @@ const TodoList = () => {
     const [nuevaTarea, setNuevaTarea] = useState("");
     const [tareaEditando, setTareaEditando] = useState("");
 
+    // Función que nos crea al usuario (POST)
+    async function crearUsuario() {
+        try {
+            const response = await fetch(`${host}/users/${user}`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            });
+            if (!response.ok) {
+                throw new Error("Error al crear al usuario");
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
     // Función que nos trae las tareas (GET)
     async function traerTareas() {
         const uri = `${host}/users/${user}`
@@ -86,29 +103,52 @@ const TodoList = () => {
     };
 
     useEffect(() => {
+        crearUsuario();
         traerTareas();
     }, []);
 
     return (
-        <>
-            <input
-                type="text"
-                value={nuevaTarea}
-                onChange={(evento) => setNuevaTarea(evento.target.value)}
-                placeholder="Escribe una tarea"
-            />
-            <button onClick={() => tareaEditando ? actualizarTareas(tareaEditando) : crearTareas()} >
-                {tareaEditando ? "Actualizar tarea" : "Crear tarea"}
-            </button>
-            {tareas.map((item) =>
+        <div className="container">
+            <p className="titulo d-flex justify-content-center fw-light text-light">todos</p>
+            <div className="mx-4 shadow-lg">
                 <div>
-                    <h4>{item.label}</h4>
-                    <button onClick={() => editarTarea(item)} >actualizar</button>
-                    <button onClick={() => borrarTareas(item)} >borrar</button>
+                    <input
+                        className="form-control rounded-0 border-bottom-0 fs-2 ps-5"
+                        type="text"
+                        value={nuevaTarea}
+                        onChange={(evento) => setNuevaTarea(evento.target.value)}
+                        placeholder="What needs to be done?"
+                    />
+                    <div className="d-flex justify-content-center text-center m-3 rounded-0">
+                        <button className="btn btn-success" onClick={() => tareaEditando ? actualizarTareas(tareaEditando) : crearTareas()} >
+                            {tareaEditando ? "Actualizar tarea" : "Crear tarea"}
+                        </button>
+                    </div>
+                    {tareas.map((item) =>
+                        <ul className="list-group rounded-0" style={{ listStyle: "none" }}>
+                            <li className="list-group-item d-flex justify-content-between align-items-center fs-3 ps-5 rounded-0">{item.label}
+                                <span
+                                    className="delete-btn btn btn-sm fs-3"
+                                    onClick={() => editarTarea(item)}
+                                >
+                                    &alpha;
+                                </span>
+                                <span
+                                    className="delete-btn btn btn-sm fs-3"
+                                    onClick={() => borrarTareas(item)}
+                                >
+                                    &times;
+                                </span>
+                            </li>
+                        </ul>
+                    )}
+                    <div className="d-flex justify-content-end text-center rounded-0">
+                        <button className="btn btn-danger m-3 mb-1 me-1" onClick={() => { borrarTodasTareas() }}>Borrar todo</button>
+                    </div>
+
                 </div>
-            )}
-            <button onClick={() => {borrarTodasTareas}}>Borrar todo</button>
-        </>
+            </div>
+        </div>
     );
 };
 export default TodoList;
